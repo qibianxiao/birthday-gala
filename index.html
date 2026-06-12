@@ -168,6 +168,35 @@ transform: translateX(-50%) rotate(-10deg) scale(0.1);
   background: repeating-linear-gradient(90deg, #ffe066 0px, #ffe066 20px, #ff8c1a 20px, #ff8c1a 40px);
   border-radius: 5px 5px 0 0;
 }
+
+/* Barrage / Danmaku */
+#barrage-layer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+#barrage-layer span {
+  position: absolute;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Comic Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  animation: barrageFly linear infinite;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  opacity: 0.85;
+}
+@keyframes barrageFly {
+  0%   { transform: translateX(110vw); }
+  100% { transform: translateX(-110%); }
+}
+
+/* Mobile smaller barrage */
+@media (max-width: 768px) {
+  #barrage-layer span { font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -389,8 +418,9 @@ THE ULTIMATE MEME GALA: 19th BIRTHDAY
 </section>
 
 <!-- Cyber-Candle Section -->
-<section id="cyber-candle" class="main-section p-10 flex flex-col items-center">
-<div class="p-10 bg-black border-8 border-hot-pink text-center" style="box-shadow: 0 0 40px rgba(255,105,180,0.5);">
+<section id="cyber-candle" class="main-section p-10 flex flex-col items-center" style="position:relative;">
+<div id="barrage-layer"></div>
+<div class="p-10 bg-black border-8 border-hot-pink text-center" style="box-shadow: 0 0 40px rgba(255,105,180,0.5);z-index:10;position:relative;">
 <h2 class="pixel-font text-5xl md:text-7xl font-bold text-electric-blue mb-10">THE CYBER CAKE IS HERE</h2>
 <div class="candle-container relative inline-block mb-10" id="blow-zone">
 <div class="flame" id="led-flame"></div>
@@ -399,8 +429,8 @@ THE ULTIMATE MEME GALA: 19th BIRTHDAY
 </div>
 <div id="final-message" class="hidden text-3xl font-bold text-center">
 <p>NICE BLOW! 🔥</p>
-<p class="text-5xl mt-5">HAPPY 19th BIRTHDAY, <span class="text-neon-green">FRIEND</span>!</p>
-<p class="mt-5 text-xl">May your memes be dank and your memories many. 🎉</p>
+<p class="text-5xl mt-5">HAPPY 19th BIRTHDAY, <span class="text-neon-green">葛紫玥</span>!</p>
+<p class="mt-5 text-xl">愿你眼里有光，心中有爱，岁岁无忧。🎉</p>
 </div>
 </div>
 </section>
@@ -508,6 +538,107 @@ THE ULTIMATE MEME GALA: 19th BIRTHDAY
       }
     }
   }
+
+  // Barrage of birthday blessings
+  var barrageLayer = document.getElementById('barrage-layer');
+  var blessings = [
+    '葛紫玥，生日快乐！🎂',
+    '紫玥小仙女，一岁一礼，一寸欢喜 ✨',
+    '祝紫玥宝贝永远18岁！💖',
+    '葛紫玥，今天是没有流星也可以许愿的日子 🌠',
+    '紫玥女王，生日快乐！👑',
+    '葛紫玥，愿你所求皆如愿，所行化坦途 🌈',
+    '紫玥，按时长大，平安喜乐 🕯️',
+    '葛紫玥，愿每一岁都奔走在自己的热爱里 🏃',
+    '紫玥，烟火向星辰，所愿皆成真 🎆',
+    '生日快乐，葛紫玥！旦逢良辰，顺颂时宜 🌸',
+    '紫玥，今天不营业，只负责开心 😄',
+    '葛紫玥，且喜且乐，且以永日 📖',
+    '祝紫玥万事顺意，前程似锦 🌟',
+    '葛紫玥，生而自由，日日欢愉 🦋',
+    '紫玥小可爱，愿你遍历山河，觉得人间值得 🌍',
+    '葛紫玥，多少岁不重要，岁岁平安才重要 ☁️',
+    '紫玥，愿你眼里有光，心中有爱 💫',
+    '祝葛紫玥C位出道，永远闪亮 ⭐',
+    '紫玥，不负时光，不负自己 🌻',
+    '葛紫玥，风光胜旧，岁序更新 🎊',
+    '紫玥宝，愿你此生尽兴，赤诚善良 ❤️',
+    '生日快乐葛紫玥！愿你光芒万丈 ✨',
+    '紫玥，愿日子清透，世事温柔 🌿',
+    '葛紫玥最棒！生日快乐！🎁',
+    '紫玥小公主，年年有今日，岁岁有今朝 🎂',
+    '葛紫玥，愿你永远做自己的女王 👸',
+    '紫玥，愿所有的美好都如期而至 🌈',
+    '祝葛紫玥生日快乐，永远开心！🥳',
+    '紫玥，愿你被世界温柔以待 💝',
+    '葛紫玥，新的一岁，新的精彩 🚀',
+    '紫玥宝贝，生日快乐！万事胜意！💐',
+    '葛紫玥，愿你的每一天都像今天一样美好 🌞',
+    '紫玥，以岁月之名，安稳且长乐 🕊️',
+    '葛紫玥，不负韶华，不负热爱 🔥',
+    '祝紫玥小可爱生日快乐，天天开心！🎵',
+    '葛紫玥，跨过星河，迈过月亮，迎接更好的自己 🌙',
+    '紫玥，此生尽兴，赤诚善良 🎀',
+    '葛紫玥，愿你变成自己想要的模样 💎',
+    '紫玥宝贝，平安喜乐，万事顺遂 🍀',
+    '葛紫玥，每一天都值得被珍藏 📸',
+    '紫玥小仙女下凡辛苦了！生日快乐！😇',
+    '葛紫玥，愿你前路浩浩荡荡，万物皆可期待 🌅',
+    '紫玥，生活明朗，万物可爱，你也是 🌷',
+    '葛紫玥，生日快乐！愿你永远自由如风 🍃',
+    '紫玥，今日份的快乐已送达，请查收 📬',
+    '葛紫玥，愿你成为自己的太阳无需凭借谁的光 ☀️',
+    '紫玥宝贝，19岁也要闪闪发光哦 ✨',
+    '葛紫玥，愿时光能缓，愿你笑靥如花 🌺',
+    '紫玥，感谢你出现在这个世界 💗',
+    '葛紫玥，愿你的梦想都能实现 🌠',
+    '优秀的葛紫玥，生日快乐！🎉',
+    '紫玥，希望你继续长成厉害的大人 💪',
+    '葛紫玥，不管几岁，快乐万岁！🥂',
+    '紫玥小天使，生日快乐！👼',
+    '葛紫玥，世界很大，你很珍贵 💎',
+    '紫玥，愿所有的幸福都围绕着你 💫',
+    '葛紫玥，笑容像阳光一样灿烂吧！☀️',
+    '紫玥宝贝，愿你吃好喝好长生不老 🍰',
+    '葛紫玥，愿你的可爱治愈一切不可爱 🎀',
+    '紫玥，愿你永远保持那颗赤子之心 ❤️',
+    '祝紫玥永远年轻永远热泪盈眶 🌊',
+    '葛紫玥，你的存在就是世界的美好 🌈',
+    '紫玥小公主，来年也要一起走花路 🌸',
+    '葛紫玥，今天全宇宙都为你庆祝 🪐',
+    '紫玥，愿你不慌不忙，心之所向 🧭',
+    '葛紫玥，生日快乐！愿美好与你环环相扣 🔗',
+    '紫玥宝，愿你前程似锦，未来可期 🚄',
+    '葛紫玥，岁月不败美人，你永远最美 💃',
+    '紫玥，愿你被爱包围，被幸福填满 🥰',
+    '葛紫玥，愿你眼里写满故事，脸上不见风霜 🌬️',
+    '紫玥，愿有人陪你颠沛流离，如果没有，愿你成为自己的太阳 🌤️',
+    '葛紫玥，愿你在自己的时区里，不紧不慢地成长 🕰️',
+    '紫玥宝贝，愿你所有的努力都不被辜负 🏆',
+    '葛紫玥，愿你的生活像今天的蛋糕一样甜 🍰',
+    '紫玥，你值得世界上所有美好的事物 🦄',
+    '葛紫玥，愿你笑得像花儿一样灿烂 🌻',
+    '紫玥，生日快乐呀！愿你的每一天都是高光时刻！📸',
+    '葛紫玥，愿你眼里有星辰，身边有微风，心中有暖阳 🌤️',
+    '紫玥，愿所有的好运都“紫”属于你 💜',
+    '葛紫玥，愿你活成自己喜欢的模样 🌈',
+    '葛紫玥，愿你往后余生，暴富是我，暴美是你 💰'
+  ];
+
+  var colors = ['#ff69b4','#ffd700','#00ffff','#ff6b6b','#7bed9f','#ffa502','#eccc68',
+                '#ff6348','#2ed573','#1e90ff','#ff4757','#a29bfe','#fd79a8','#55efc4',
+                '#74b9ff','#fab1a0','#81ecec','#dfe6e9','#fdcb6e','#e056a0'];
+
+  blessings.forEach(function(msg, i) {
+    var span = document.createElement('span');
+    span.textContent = msg;
+    span.style.top = (Math.random() * 90) + '%';
+    span.style.color = colors[Math.floor(Math.random() * colors.length)];
+    span.style.animationDuration = (8 + Math.random() * 15) + 's';
+    span.style.animationDelay = (Math.random() * 12) + 's';
+    span.style.fontSize = (14 + Math.random() * 14) + 'px';
+    barrageLayer.appendChild(span);
+  });
 
   // Cyber candle
   blowZone.addEventListener('click', function() {
